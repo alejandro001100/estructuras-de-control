@@ -1,11 +1,12 @@
+//Grupo Camila Torres y Alejandro Paqui
 #include <stdio.h>
 
 int main()
 {
-    int opcion, cantidad;
-    char unidades;
-    float precio, total;
+    int opcion, cantidad, continuar;
+    float precio, total = 0;
     char seleccion_producto;
+    char nombre[50], cedula[20], productos[1000] = ""; // cadena para almacenar los productos seleccionados
 
     printf("\n\nMenú de facturación");
     printf("\n---------------------");
@@ -15,8 +16,7 @@ int main()
 
     do {
         printf("\n\nElija una opción: ");
-        scanf("%c", &opcion);
-        fflush(stdin);
+        scanf(" %c", &opcion);
 
         switch (opcion) {
             case 'a':
@@ -28,8 +28,7 @@ int main()
                 printf("\nd) Faro (Precio: $70)");
                 printf("\ne) Radiador (Precio: $120)");
                 printf("\n\nElija un producto: ");
-                scanf("%c", &seleccion_producto);
-                fflush(stdin);
+                scanf(" %c", &seleccion_producto);
                 
                 // calcular el precio del producto
                 switch (seleccion_producto) {
@@ -55,31 +54,77 @@ int main()
 
                 printf("Ingrese la cantidad: ");
                 scanf("%d", &cantidad);
-                fflush(stdin);
-                printf("Ingrese las unidades (ejemplo: kg, litros, metros, etc.): ");
-                scanf("%c", &unidades);
-                fflush(stdin);
 
-                total = precio * cantidad;
-                printf("\n\nEl total a pagar por %d %c de %c es: $%.2f", cantidad, unidades, seleccion_producto, total);
+                total += precio * cantidad; // acumular el total
+                printf("\n\nSe agregaron %d unidades de %c a la factura", cantidad, seleccion_producto);
+
+                // agregar el producto a la cadena de productos
+                char producto[50];
+                switch (seleccion_producto) {
+                    case 'a':
+                        sprintf(producto, "Llantas x%d, ", cantidad);
+                        break;
+                    case 'b':
+                        sprintf(producto, "Kit Pastillas de freno x%d, ", cantidad);
+                        break;
+                    case 'c':
+                        sprintf(producto, "Kit de embrague x%d, ", cantidad);
+                        break;
+                    case 'd':
+                        sprintf(producto, "Faro x%d, ", cantidad);
+                        break;
+                    case 'e':
+                        sprintf(producto, "Radiador x%d, ", cantidad);
+                        break;
+                }
+                strcat(productos, producto);
+
+                // preguntar si desea agregar otro producto
+                printf("\n¿Desea agregar otro producto? (1 = sí, 0 = no): ");
+                scanf("%d", &continuar);
+                if (!continuar) {
+                    printf("\n\nProductos agregados a la factura: %s", productos);
+                    printf("\n\nEl total a pagar es: $%.2f", total);
+                }
                 break;
 
-            case 'b':
-                // código para imprimir factura
-                printf("\n\nFactura\n---------------------");
-                // aquí irían los datos de la factura
-                break;
+     case 'b':
+    if (total > 0) {
+        // solicitar datos del cliente
+        printf("Ingrese el nombre del cliente: ");
+        scanf("%s", nombre);
+        printf("Ingrese el apellido del cliente: ");
+        scanf("%s", apellido);
+        printf("Ingrese la cedula del cliente: ");
+        scanf("%s", cedula);
 
-            case 'c':
-                printf("\n\nGracias por utilizar nuestro servicio de facturación\n");
-                break;
+        // imprimir factura
+        printf("\n\nFactura\n");
+        printf("---------------------\n");
+        printf("Cliente: %s %s\n", nombre, apellido);
+        printf("Cedula: %s\n", cedula);
+        printf("Productos:\n");
 
-            default:
-                printf("\n\nOpción no válida\n");
-                break;
+        // imprimir cada producto de la factura
+        for (int i = 0; i < num_productos; i++) {
+            printf(" - %d unidades de %s\t\t$%.2f\n", productos[i].cantidad, productos[i].nombre, productos[i].precio_total);
         }
 
-    } while (opcion != 'c');
+        printf("\nTotal: $%.2f\n", total);
+    } else {
+        printf("\n\nNo hay productos facturados aún\n");
+    }
+    break;
+
+case 'c':
+    printf("\n\nGracias por utilizar nuestro servicio de facturación\n");
+    break;
+
+default:
+    printf("\n\nOpción no válida\n");
+    break;
+}
+ } while (opcion != 'c');
 
     return 0;
 }
