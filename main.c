@@ -1,3 +1,4 @@
+//CAMILA TORRES Y ALEJANDRO PAQUI
 #include <stdio.h>
 
 int main() {
@@ -16,9 +17,10 @@ int main() {
     // Ciclo principal
     while (1) {
         // Menú principal
-        printf("\n*******************\n");
-        printf("  MENÚ PRINCIPAL\n");
-        printf("*******************\n");
+        printf("*******************************\n");
+        printf("         MENÚ PRINCIPAL\n");
+        printf("*******************************\n");
+        printf("CAMILA TORRES Y ALEJANDRO PAQUI\n");
         printf("a. Facturar producto\n");
         printf("b. Imprimir factura\n");
         printf("c. Salir\n");
